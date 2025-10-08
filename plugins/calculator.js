@@ -46,7 +46,7 @@ plugin({
         const response = `*🧮 Calculator*\n\n` +
             `*Expression:* ${expression}\n` +
             `*Result:* ${formattedResult}\n\n` +
-            `> © ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀`;
+            `> © ᴘσωєʀє∂ ву 𝐑4𝐛𝐛𝐢𝐭-𝐦𝐢𝐧𝐢💀`;
 
         await message.send(response);
 
@@ -150,11 +150,11 @@ plugin({
 
         const formattedResult = Number.isInteger(result) ? result.toString() : result.toFixed(4).replace(/\.?0+$/, '');
 
-        const response = `*🔄 Unit Converter*\n\n` +
+        const response = `*🔄 𝐔𝐧𝐢𝐭 𝐜𝐨𝐧𝐯𝐞𝐭𝐞𝐫*\n\n` +
             `*Category:* ${category}\n` +
             `*From:* ${value} ${fromUnit}\n` +
             `*To:* ${formattedResult} ${toUnit}\n\n` +
-            `> © ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀`;
+            `> © ᴘσωєʀє∂ ву 𝐑4𝐛𝐛𝐢𝐭-𝐦𝐢𝐧𝐢💀`;
 
         await message.send(response);
 
