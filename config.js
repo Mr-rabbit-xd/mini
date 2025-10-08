@@ -10,7 +10,7 @@ const toBool = (x) => x === 'true';
 const DB_URL = process.env.DATABASE_URL || '';
 
 module.exports = {
-  SESSION_ID: process.env.SESSION_ID || 'KAISEN~KtYliJLa#CbzInslQXZN2j8TFnNJ6A8tISfU6kJLQgYudh02nuf8', // add your session id here
+  SESSION_ID: process.env.SESSION_ID || 'R4BBIT~KtYliJLa#CbzInslQXZN2j8TFnNJ6A8tISfU6kJLQgYudh02nuf8', // add your session id here
 
   HEROKU: {
     API_KEY: process.env.HEROKU_API_KEY,
@@ -36,22 +36,22 @@ module.exports = {
   REACT: process.env.REACT || 'true',
 
   WARNCOUND: parseInt(process.env.WARNCOUND || '5'),
-  BOT_INFO: process.env.BOT_INFO || 'KAISEN-BOT-MD;https://files.catbox.moe/q6munv.jpg',
+  BOT_INFO: process.env.BOT_INFO || '𝐑4𝐁𝐁𝐈𝐓-𝐌𝐈𝐍𝐈;https://files.catbox.moe/6qfovj.jpg',
   WORKTYPE: process.env.WORKTYPE || 'public',
-  CMD_NAME: process.env.CMD_NAME || '© ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ',
+  CMD_NAME: process.env.CMD_NAME || '© ',
   PREFIX: process.env.PREFIX || '[.,!]',
   PERSONAL_MESSAGE: process.env.PERSONAL_MESSAGE || 'null',
   BOT_PRESENCE: process.env.BOT_PRESENCE || 'unavailable',
 
-  AUDIO_DATA: process.env.AUDIO_DATA || 'KAISEN-BOT-MD;bot;https://i.imgur.com/DyLAuEh.jpg',
-  STICKER_DATA: process.env.STICKER_DATA || 'KAISEN;bot',
+  AUDIO_DATA: process.env.AUDIO_DATA || '𝐑4𝐁𝐁𝐈𝐓-𝐌𝐈𝐍𝐈;bot;https://files.catbox.moe/6qfovj.jpg',
+  STICKER_DATA: process.env.STICKER_DATA || '𝐑4𝐁𝐁𝐈𝐓;𝐌𝐈𝐍𝐈',
   LIST_TYPE: process.env.LIST_TYPE || 'poll',
-  LINK_PREVIEW: process.env.LINK_PREVIEW || 'KAISEN;Bot;https://graph.org/file/1ec147e94d9775916e665.jpg',
+  LINK_PREVIEW: process.env.LINK_PREVIEW || '𝐑4𝐁𝐁𝐈𝐓;𝐌𝐈𝐍𝐈;https://files.catbox.moe/6qfovj.jpg',
   API_TYPE: process.env.API_TYPE || 'all',
   BRAINSHOP: process.env.BRAINSHOP || '172372,nbjE0YAlyw3cpoMl',
 
-  SUDO: process.env.SUDO || '917003816486',
-  ADMIN_NUMBER: process.env.ADMIN_NUMBER || '917003816486', // Admin number for notifications
+  SUDO: process.env.SUDO || '917439382677',
+  ADMIN_NUMBER: process.env.ADMIN_NUMBER || '917439382677', // Admin number for notifications
   RMBG_KEY: process.env.RMBG_KEY || '',
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '', // add your gemini api key here
   ELEVENLABS: process.env.ELEVENLABS || '',
