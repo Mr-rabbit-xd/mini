@@ -140,7 +140,7 @@ async function songCommand(Aliconn, chatId, message) {
             contextInfo: {
                 externalAdReply: {
                     title: `${datas.title}`,
-                    body: 'ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ',
+                    body: '𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐛𝐲 𝐑4𝐁𝐁𝐈𝐓',
                     mediaType: 1,
                     sourceUrl: 'https://youtube.com',
                     thumbnailUrl: datas.thumbnail
