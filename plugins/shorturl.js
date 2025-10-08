@@ -32,7 +32,7 @@ plugin({
         const result = `*🔗 URL Shortened Successfully*\n\n` +
             `*Original:* ${url}\n` +
             `*Shortened:* ${shortenedUrl}\n\n` +
-            `> © ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀`;
+            `> © Gᴇɴᴇʀᴀᴛᴇᴅ ʙʏ 〆͎ＭＲ－Ｒａｂｂｉｔ💀`;
 
         await message.send(result);
 
@@ -71,7 +71,7 @@ plugin({
         const result = `*🔍 URL Expanded Successfully*\n\n` +
             `*Shortened:* ${url}\n` +
             `*Expanded:* ${expandedUrl}\n\n` +
-            `> © ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀`;
+            `> © Gᴇɴᴇʀᴀᴛᴇᴅ ʙʏ 〆͎ＭＲ－Ｒａｂｂｉｔ💀`;
 
         await message.send(result);
 
