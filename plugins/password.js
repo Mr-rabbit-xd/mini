@@ -44,7 +44,7 @@ plugin({
             `• Don't share this password\n` +
             `• Use different passwords for different accounts\n` +
             `• Store it securely\n\n` +
-            `> © ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀`;
+            `> © 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐑4𝐛𝐛𝐢𝐭💀`;
 
         await message.send(result);
 
@@ -123,7 +123,7 @@ plugin({
             `*Score:* ${score}/8\n` +
             `*Length:* ${password.length} characters\n\n` +
             (feedback.length > 0 ? `*Recommendations:*\n${feedback.join('\n')}\n\n` : '*✅ Great password!*\n\n') +
-            `> © ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀`;
+            `> © ᴘσωєʀє∂ ву 𝐑4𝐛𝐛𝐢𝐭-𝐦𝐢𝐧𝐢💀`;
 
         await message.send(result);
 
