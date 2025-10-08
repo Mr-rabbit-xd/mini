@@ -16,7 +16,7 @@ plugin(
   },
   async (message, match) => {
     if (!/image|video|webp/.test(message.mime)) return await message.send(
-      '> please reply to a sticker message'
+      '> 𝐑𝐞𝐩𝐥𝐲 𝐭𝐨 𝐚𝐧 𝐢𝐦𝐚𝐠𝐞 𝐨𝐫 𝐬𝐡𝐨𝐫𝐭 𝐯𝐢𝐝𝐞𝐨 𝐰𝐢𝐭𝐡 𝐭𝐡𝐞 𝐜𝐨𝐦𝐦𝐚𝐧𝐝 `𝐒𝐭𝐢𝐜𝐤𝐞𝐫`'
         );
      if (message.reply_message.mime) {
         let download = await message.reply_message.download();
