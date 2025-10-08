@@ -1,12 +1,12 @@
 {
-    "name": "KAISEN-MD",
-    "version": "4.0.0",
+    "name": "R4BBIT-MIMI",
+    "version": "1.0.0",
     "description": "WhatsApp bot made kaisen md with nodejs and baileys",
     "main": "index.js",
     "scripts": {
-        "start": "pm2 start index.js --deep-monitoring --attach --name KAISEN-MD",
-        "stop": "pm2 stop KAISEN-MD",
-        "restart": "pm2 restart KAISEN-MD"
+        "start": "pm2 start index.js --deep-monitoring --attach --name R4BBIT-MINI",
+        "stop": "pm2 stop R4BBIT-MINI",
+        "restart": "pm2 restart R4BBIT-MINI"
     },
     "repository": {
         "type": "git",
