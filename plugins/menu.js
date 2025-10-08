@@ -15,7 +15,7 @@ const runtime = secs => {
 const readMore = String.fromCharCode(8206).repeat(4001);
 
  const channelJid = "120363420208876417@newsletter";
-  const channelName = "© ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀";         
+  const channelName = "© 𝐑4𝐁𝐁𝐈𝐓-𝐌𝐈𝐍𝐈💀";         
   const serverMessageId = 1;
 
 plugin({
