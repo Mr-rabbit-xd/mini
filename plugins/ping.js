@@ -1,65 +1,22 @@
-const {
-  plugin,
-  isAccess,
-  mode,
-  config
-} = require('../lib');
+const { plugin, mode } = require('../lib');
 
 plugin({
   pattern: 'ping|pong',
   desc: 'Check bot response speed',
-  react: '🍄',
+  react: '⚡',
   fromMe: mode,
   type: 'info'
-}, async (message, match) => {
-  const emojis = [
-    '⛅🌦️🌤️', '💘💝💖', '👻⛄👀', '🪁🪃🎳',
-    '🎀🎁🎈', '🙊🙉🙈', '🌸✨💮', '🩷🌙💫',
-    '🌈🌸🌟', '🍥🌺🎀', '🍓🍡💗', '🦋🎐💖',
-    '💫🫧🌙', '💞🌸🐾', '🍰🎀🌼', '🍡🌼💗',
-    '👻💀☠️', '🤍🩷🩶', '☁️🌨️🌧️', '🌦️🌥️⛅',
-    '🌜🌚🌝', '🥀🌹💐', '☃️🪺🪹', '🍂🍄🌾',
-    '🍁🌴🍀', '🐼🐹🐰', '👻⛄☃️', '⚡✨🌟',
-    '☁️🎐🏖️', '🌴🌳🌲',
-    '🌊🐚🪸', '🍒🍇🍉', '🪷🌼🌻', '🐶🐱🐭',
-    '🚀🛸🛰️', '🍫🍩🍪', '🪙💎💰', '🌋🏔️⛰️',
-    '🪅🎊🎉', '📚🖋️📜', '🍵☕🥛', '🎧🎤🎼',
-    '🌞🔥🌅', '🌄🏞️🏕️', '🌌🌠🌙', '🪐🌎🌏',
-    '🌳🌲🌴', '🍃🍂🍁', '🪵🍄🌿', '🪲🦋🐞',
-    '🐢🦎🐍', '🦀🦞🦐', '🐬🐳🐋', '🦈🐟🐠',
-    '🍔🍟🌭', '🍕🥪🥗', '🍜🍣🍱', '🥟🍤🍢',
-    '🍰🧁🍮', '🍯🍞🥐', '🥩🍗🥓', '🥥🍍🥭',
-    '🦊🦝🐻', '🐨🦘🦙', '🦒🦓🦌', '🦏🐘🦛',
-    '🐔🐧🦤', '🦅🦆🦉', '🦢🦩🕊️', '🕷️🕸️🦂',
-    '🧙🧝🧚', '🧛🧟🧞', '🧜🦸🦹', '🐉🐲👾',
-    '🎃🪦⚰️', '⚗️🔭🔬', '🛡️⚔️🏹',
-    '🗿🏰🏯', '🕌⛩️🛕', '🕍⛪🛤️', '🏟️🎡🎢',
-    '💖💗💓', '💜💙💚', '❤️🧡💛', '🖤🤎🤍'
-  ];
-  const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-  const start = new Date().getTime();
-
-  await message.send('🏓 Pinging...');
-
-  const end = new Date().getTime();
+}, async (message) => {
+  const start = Date.now();
+  
+  // Send the initial "Pinging..." message
+  const sent = await message.send('🏓 𝐏𝐢𝐧𝐠𝐢𝐧𝐠...');
+  
+  const end = Date.now();
   const ping = end - start;
 
-  const styledText = `◈ ${emoji}\n*╰┈➤ 𝐏O͒N͒𝐆: ${ping} ms*`;
-
-  const channelJid = "";
-  const channelName = "";         
-  const serverMessageId = 1;
-
-  await message.client.sendMessage(message.jid, {
-    text: styledText,
-    contextInfo: {
-      forwardingScore: 999,
-      isForwarded: true,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: channelJid,
-        newsletterName: channelName,
-        serverMessageId: serverMessageId
-      }
-    }
-  });
+  // Send the pong reply message (no edit)
+  await message.client.sendMessage(message.chat, {
+    text: `*╰┈➤ 𝐏O͒N͒𝐆: ${ping} ms*`
+  }, { quoted: sent });
 });
