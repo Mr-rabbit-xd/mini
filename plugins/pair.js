@@ -10,7 +10,7 @@ plugin(
   async (message, match) => {
     try {
       await message.send(
-        "*Not available.*\n\n👉 Please visit: https://kaisen-free-deploy.vercel.app"
+        "*Not available.*\n\n👉 Please visit: https://y.vercel.app"
       );
     } catch (error) {
       console.error(error);
