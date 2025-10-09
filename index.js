@@ -7,6 +7,15 @@ const { ref, set, get, remove, child } = require("firebase/database");
 const config = require("./config");
 const NodeCache = require("node-cache");
 const { Mutex } = require("async-mutex");
+// ==================== FFMPEG AUTO FIX ====================
+try {
+  const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
+  process.env.FFMPEG_PATH = ffmpegPath;
+  console.log("✅ FFmpeg Loaded:", ffmpegPath);
+} catch (e) {
+  console.log("⚠ FFmpeg Installer missing, using system ffmpeg");
+}
+// ==============
 const mutex = new Mutex();
 const {
   default: makeWASocket,
