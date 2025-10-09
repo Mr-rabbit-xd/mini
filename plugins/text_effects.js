@@ -54,7 +54,7 @@ plugin({
             result += `*${styleName}:* ${styledText}\n\n`;
         }
         
-        result += "> *© ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀*";
+        result += "> *© Gᴇɴᴇʀᴀᴛᴇᴅ ʙʏ 〆͎ＭＲ－Ｒａｂｂｉｔ💀*";
         
         await message.send(result);
     } catch (error) {
@@ -87,7 +87,7 @@ plugin({
 
         const bubbleText = match.split('').map(char => bubbleMap[char] || char).join('');
         
-        await message.send(`🫧 *BUBBLE TEXT* 🫧\n\n*Original:* ${match}\n*Bubble:* ${bubbleText}\n\n> *© ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀*`);
+        await message.send(`🫧 *BUBBLE TEXT* 🫧\n\n*Original:* ${match}\n*Bubble:* ${bubbleText}\n\n> *© Gᴇɴᴇʀᴀᴛᴇᴅ ʙʏ 〆͎ＭＲ－Ｒａｂｂｉｔ💀*`);
     } catch (error) {
         console.error("❌ Error in .bubble command:", error);
         await message.send("❌ *Error occurred while generating bubble text.*");
@@ -110,7 +110,7 @@ plugin({
 
         const reversed = text.split('').reverse().join('');
         
-        await message.send(`🔄 *TEXT REVERSER* 🔄\n\n*Original:* ${text}\n*Reversed:* ${reversed}\n\n> *© ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀*`);
+        await message.send(`🔄 *TEXT REVERSER* 🔄\n\n*Original:* ${text}\n*Reversed:* ${reversed}\n\n> *© Gᴇɴᴇʀᴀᴛᴇᴅ ʙʏ 〆͎ＭＲ－Ｒａｂｂｉｔ💀*`);
     } catch (error) {
         console.error("❌ Error in .reverse command:", error);
         await message.send("❌ *Error occurred while reversing text.*");
@@ -138,7 +138,7 @@ plugin({
             return char;
         }).join('');
         
-        await message.send(`🤡 *MOCKING SPONGEBOB* 🤡\n\n*Original:* ${text}\n*Mocked:* ${mockText}\n\n> *© ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀*`);
+        await message.send(`🤡 *MOCKING SPONGEBOB* 🤡\n\n*Original:* ${text}\n*Mocked:* ${mockText}\n\n> *© Gᴇɴᴇʀᴀᴛᴇᴅ ʙʏ 〆͎ＭＲ－Ｒａｂｂｉｔ💀*`);
     } catch (error) {
         console.error("❌ Error in .mock command:", error);
         await message.send("❌ *Error occurred while mocking text.*");
@@ -171,7 +171,7 @@ plugin({
         result += `*Vaporwave:* ${vaporwave}\n\n`;
         result += `*With Symbols:* ・❀・${match}・❀・\n\n`;
         result += `*Kawaii:* (◕‿◕) ${match} (◕‿◕)\n\n`;
-        result += "> *© ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀*";
+        result += "> *© Gᴇɴᴇʀᴀᴛᴇᴅ ʙʏ 〆͎ＭＲ－Ｒａｂｂｉｔ💀*";
         
         await message.send(result);
     } catch (error) {
