@@ -1,106 +1,153 @@
-const yts = require("yt-search");
-const { fetchJson } = require("../../lib");
-const { youtubeAPIs, timeout } = require("../../config");
-
-const cache = new Map();
+const axios = require('axios');
+const yts = require('yt-search');
+const fs = require('fs');
+const path = require('path');
+const { fetchJson, getBuffer } = require('../../lib');
 
 async function songCommand(Aliconn, chatId, message) {
-  try {
-    const text = message.message?.conversation || message.message?.extendedTextMessage?.text;
-    const query = text.trim();
+    try {
+        const text = message.message?.conversation || message.message?.extendedTextMessage?.text;
+        const searchQuery = text.split(' ').slice(1).join(' ').trim();
 
-    if (!query) {
-      await message.client.sendMessage(chatId, { text: "🎧 Please provide a YouTube link or song name!" }, { quoted: message });
-      return;
-    }
-
-    // Direct link দিলে
-    if (query.startsWith("https://youtu")) {
-      return await downloadAndSend(query, Aliconn, message);
-    }
-
-    // Cache check
-    if (cache.has(query)) {
-      return await downloadAndSend(cache.get(query), Aliconn, message);
-    }
-
-    // Super fast yt-search
-    const searchPromise = yts({ query, pages: 1 });
-    const raceTimeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Search timeout")), 4000));
-    const search = await Promise.race([searchPromise, raceTimeout]);
-
-    if (!search.videos || search.videos.length === 0)
-      return message.send("❌ No results found.");
-
-    const videoUrl = search.videos[0].url;
-    cache.set(query, videoUrl);
-
-    await downloadAndSend(videoUrl, Aliconn, message);
-  } catch (err) {
-    console.error("❌ Error:", err.message);
-    message.send(`❌ Error: ${err.message}`);
-  }
-}
-
-async function downloadAndSend(videoUrl, Aliconn, message) {
-  try {
-    const encoded = encodeURIComponent(videoUrl);
-    const apiRequests = youtubeAPIs.map(api =>
-      fetchJson(`${api.url}${encoded}`, { timeout })
-        .then(res => ({ ...res, _source: api.name }))
-        .catch(() => null)
-    );
-
-    const down = await Promise.race(apiRequests);
-    if (!down) throw new Error("All APIs failed");
-
-    let title, thumb, audio;
-
-    if (down._source === "ZAYNIX") {
-      title = down.result.title;
-      thumb = down.result.thumbnail;
-      audio = down.result.audio_download;
-    } else if (down._source === "ASWIN-SPARKY") {
-      title = down.data.title;
-      thumb = "https://i.imgur.com/HNw2pCg.jpg";
-      audio = down.data.url;
-    }
-
-    if (!audio) throw new Error("No audio URL found");
-
-    console.log(`✅ Fastest API: ${down._source}`);
-
-    await Aliconn.sendMessage(message.jid, {
-      audio: { url: audio },
-      mimetype: "audio/mpeg",
-      contextInfo: {
-        externalAdReply: {
-          title: title,
-          body: `⚡ Instant • ${down._source} • Powered by 🐰 R4BBIT`,
-          mediaType: 1,
-          sourceUrl: videoUrl,
-          thumbnailUrl: thumb
+        if (!searchQuery) {
+            await message.client.sendMessage(chatId, { text: '🎵 What song do you want to download?' }, { quoted: message });
+            return;
         }
-      }
-    }, { quoted: message.data });
 
-  } catch (err) {
-    console.error("Download Error:", err.message);
-    await message.send("❌ Download failed or all APIs slow.");
-  }
-}
+        let downloadUrl;
+        let dataa;
+        let buffer;
 
-module.exports = songCommand;        }
-        
+        // 🧠 Fetch buffer with browser-like headers
+        const getBufferWithHeaders = async (url) => {
+            try {
+                const response = await axios({
+                    method: 'GET',
+                    url: url,
+                    responseType: 'arraybuffer',
+                    timeout: 60000,
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+                        'Accept': '*/*',
+                        'Accept-Language': 'en-US,en;q=0.9',
+                        'Connection': 'keep-alive',
+                        'Referer': 'https://www.youtube.com/',
+                    },
+                });
+                return Buffer.from(response.data);
+            } catch (error) {
+                console.error(`Failed to fetch buffer from ${url}:`, error.message);
+                throw error;
+            }
+        };
+
+        // 🟢 If it's a YouTube URL
+        if (searchQuery.startsWith("https://youtu")) {
+            try {
+                // 🎯 Use Aswin Sparky API
+                const apiUrl = `https://api-aswin-sparky.koyeb.app/api/downloader/song?search=${encodeURIComponent(searchQuery)}`;
+                const down = await fetchJson(apiUrl);
+
+                if (!down.status || !down.data || !down.data.url) {
+                    throw new Error("Invalid API response");
+                }
+
+                dataa = {
+                    title: down.data.title,
+                    thumbnail: "https://i.ytimg.com/vi/" + searchQuery.split("youtu.be/")[1]?.split("?")[0] + "/hqdefault.jpg"
+                };
+                downloadUrl = down.data.url;
+
+            } catch (err) {
+                console.error("Failed to get video info:", err);
+                return message.send("❌ Unable to fetch video information. Please try again later.");
+            }
+
+            // Try to get buffer
+            try {
+                buffer = await getBufferWithHeaders(downloadUrl);
+            } catch (bufferErr) {
+                console.error("Buffer fetch failed, trying fallback:", bufferErr.message);
+                try {
+                    buffer = await getBuffer(downloadUrl);
+                } catch (fallbackErr) {
+                    console.error("Fallback buffer fetch also failed:", fallbackErr.message);
+                    return message.send("❌ Failed to download the audio file. The video might be restricted or temporarily unavailable.");
+                }
+            }
+
+            // Send the audio
+            await Aliconn.sendMessage(message.jid, {
+                audio: buffer,
+                mimetype: "audio/mpeg",
+                contextInfo: {
+                    externalAdReply: {
+                        title: dataa.title,
+                        body: '🎧 Powered by 🐰 R4BBIT × ASWIN SPARKY',
+                        mediaType: 1,
+                        sourceUrl: searchQuery,
+                        thumbnailUrl: dataa.thumbnail
+                    }
+                }
+            }, { quoted: message.data });
+
+            return;
+        }
+
+        // 🔍 For search queries
+        const search = await yts(searchQuery);
+        if (!search.videos || search.videos.length === 0) {
+            return message.send("❌ No results found for your search query.");
+        }
+
         const datas = search.videos[0];
         const videoUrl = datas.url;
 
-        // Try to download using the new API structure
         try {
-            const down = await fetchJson(`https://izumiiiiiiii.dpdns.org/downloader/youtube-play?query=${encodeURIComponent(videoUrl)}`);
-            
-            if (!down.status || !down.result) {
+            const apiUrl = `https://api-aswin-sparky.koyeb.app/api/downloader/song?search=${encodeURIComponent(videoUrl)}`;
+            const down = await fetchJson(apiUrl);
+
+            if (!down.status || !down.data || !down.data.url) {
                 throw new Error("Invalid API response");
+            }
+
+            downloadUrl = down.data.url;
+            dataa = { title: down.data.title, thumbnail: datas.thumbnail };
+
+            try {
+                buffer = await getBufferWithHeaders(downloadUrl);
+            } catch (bufferErr) {
+                console.error("Buffer fetch failed:", bufferErr.message);
+                buffer = await getBuffer(downloadUrl);
+            }
+
+        } catch (err) {
+            console.error("Download failed:", err.message);
+            return message.send("❌ Download failed. Please try again later.");
+        }
+
+        // 🎶 Send the audio
+        await Aliconn.sendMessage(message.jid, {
+            audio: buffer,
+            mimetype: "audio/mpeg",
+            contextInfo: {
+                externalAdReply: {
+                    title: `${dataa.title}`,
+                    body: '🎧 Powered by 🐰 R4BBIT × ASWIN SPARKY',
+                    mediaType: 1,
+                    sourceUrl: videoUrl,
+                    thumbnailUrl: dataa.thumbnail
+                }
+            }
+        }, { quoted: message.data });
+
+    } catch (err) {
+        console.error("Main Error:", err);
+        message.send(`❌ Error: ${err.message || 'Unknown error occurred'}`);
+    }
+}
+
+module.exports = songCommand;                throw new Error("Invalid API response");
             }
             
             downloadUrl = down.result.download; // Updated property name
