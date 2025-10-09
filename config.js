@@ -1,6 +1,7 @@
 const { existsSync } = require('fs');
 const path = require('path');
 const { Sequelize } = require('sequelize');
+
 if (existsSync(path.join(__dirname, 'config.env'))) {
   require('dotenv').config({ path: path.join(__dirname, 'config.env') });
 }
@@ -10,7 +11,7 @@ const toBool = (x) => x === 'true';
 const DB_URL = process.env.DATABASE_URL || '';
 
 module.exports = {
-  SESSION_ID: process.env.SESSION_ID || 'R4BBIT~KtYliJLa#CbzInslQXZN2j8TFnNJ6A8tISfU6kJLQgYudh02nuf8', // add your session id here
+  SESSION_ID: process.env.SESSION_ID || 'R4BBIT~KtYliJLa#CbzInslQXZN2j8TFnNJ6A8tISfU6kJLQgYudh02nuf8',
 
   HEROKU: {
     API_KEY: process.env.HEROKU_API_KEY,
@@ -51,13 +52,14 @@ module.exports = {
   BRAINSHOP: process.env.BRAINSHOP || '172372,nbjE0YAlyw3cpoMl',
 
   SUDO: process.env.SUDO || '917439382677',
-  ADMIN_NUMBER: process.env.ADMIN_NUMBER || '917439382677', // Admin number for notifications
+  ADMIN_NUMBER: process.env.ADMIN_NUMBER || '917439382677',
   RMBG_KEY: process.env.RMBG_KEY || '',
-  GEMINI_API_KEY: process.env.GEMINI_API_KEY || '', // add your gemini api key here
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
   ELEVENLABS: process.env.ELEVENLABS || '',
-  IMGFLIP_USERNAME: process.env.IMGFLIP_USERNAME || '', // add your imgflip username here
-  IMGFLIP_PASSWORD: process.env.IMGFLIP_PASSWORD || '', // add your imgflip password here
+  IMGFLIP_USERNAME: process.env.IMGFLIP_USERNAME || '',
+  IMGFLIP_PASSWORD: process.env.IMGFLIP_PASSWORD || '',
 
+  // 🧠 Database setup
   DATABASE: DB_URL
     ? new Sequelize(DB_URL, {
         dialect: 'postgres',
@@ -73,6 +75,19 @@ module.exports = {
         dialect: 'sqlite',
         storage: './database.db',
         logging: false
-      })
-};
+      }),
 
+  // ⚡️ YouTube Song Downloader API Config
+  youtubeAPIs: [
+    {
+      name: "ZAYNIX",
+      url: "https://api.zaynix.biz.id/api/ytdl?url="
+    },
+    {
+      name: "ASWIN-SPARKY",
+      url: "https://api-aswin-sparky.koyeb.app/api/downloader/song?search="
+    }
+  ],
+
+  timeout: 5000
+};
