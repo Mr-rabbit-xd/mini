@@ -1,28 +1,25 @@
-# ✅ Base Image
-FROM node:18-bullseye
+# Simple Node.js Dockerfile for WhatsApp Bot
+FROM node:latest
 
-# ✅ Install FFmpeg (Fix spawn ffmpeg ENOENT) + System Packages
-RUN apt-get update && \
-    apt-get install -y ffmpeg python3 build-essential && \
-    rm -rf /var/lib/apt/lists/*
+# Install basic dependencies for Baileys
+RUN apt-get update && apt-get install -y python3 build-essential && rm -rf /var/lib/apt/lists/*
 
-# ✅ Set working directory
 WORKDIR /app
 
-# ✅ Copy package.json first for cache boost
+# Copy package files
 COPY package*.json ./
 
-# ✅ Prevent peer dependency errors (Baileys / jimp fix)
+# Fix peer dependency issue with jimp
 ENV NPM_CONFIG_LEGACY_PEER_DEPS=true
 
-# ✅ Install dependencies (including PM2 already in your package.json)
+# Install dependencies
 RUN npm install --legacy-peer-deps
 
-# ✅ Copy bot source code
+# Copy bot code
 COPY . .
 
-# ✅ Expose Port (Your Express API listens to 8000)
-EXPOSE 8000
+# Expose port (if your bot has a web interface)
+EXPOSE 3000
 
-# ✅ Start like before (pm2 via npm start)
+# Start the bot
 CMD ["npm", "start"]
